@@ -14,7 +14,7 @@ FILE=$(basename *R1* _R1_001.fastq.gz)
 # Reference variable
 # Very important!!!!
 # Specify the name of your reference of choice inside the quotes!!!
-REFERENCE="YFV_BRA.fasta"
+REFERENCE=""
 
 # Move Files to suitable place
 mv *.fastq.gz fastq/
