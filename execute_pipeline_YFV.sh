@@ -14,7 +14,7 @@ FILE=$(basename *R1* _R1_001.fastq.gz)
 # Reference variable
 # Very important!!!!
 # Specify the name of your reference of choice inside the quotes!!!
-REFERENCE=""
+REFERENCE="YFV_genome_referenceRJ97.fasta"
 
 # Move Files to suitable place
 mv *.fastq.gz fastq/
@@ -31,13 +31,15 @@ bwa index reference/${REFERENCE}
 bwa mem -t 12 reference/${REFERENCE} passedQC/${FILE1}_cutadapt.fastq passedQC/${FILE2}_cutadapt.fastq | samtools view -b > mapped/${FILE}_mapped_${REFERENCE}.bam
 
 # Cleaning alignments
-samtools view -F 800 -F 100 -F 4 -q 30 -b mapped/${FILE}_mapped_${REFERENCE}.bam > mapped/${FILE}_mapped_${REFERENCE}_clean.bam
+samtools view -F 2304 -f 2 -q 30 -b mapped/${FILE}_mapped_${REFERENCE}.bam > mapped/${FILE}_mapped_${REFERENCE}_clean.bam
 
 # Ordering
 samtools sort mapped/${FILE}_mapped_${REFERENCE}_clean.bam > mapped/${FILE}_mapped_${REFERENCE}_clean_sorted.bam
+samtools sort mapped/${FILE}_mapped_${REFERENCE}.bam > mapped/${FILE}_mapped_${REFERENCE}_sorted.bam
 
 # Indexing BAM
 samtools index mapped/${FILE}_mapped_${REFERENCE}_clean_sorted.bam
+samtools index mapped/${FILE}_mapped_${REFERENCE}_sorted.bam
 
 # Calling variants 
 freebayes -f reference/${REFERENCE} -b mapped/${FILE}_mapped_${REFERENCE}_clean_sorted.bam -v variants/variants_${FILE}_${REFERENCE}.vcf -p 4 -F 0.1
