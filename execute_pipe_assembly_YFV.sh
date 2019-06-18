@@ -23,11 +23,14 @@ bwa mem -t 12 -M $REFERENCE_HUMAN passedQC/${SAMPLE1}_cutadapt.fastq passedQC/${
 # Save unmapped reads
 samtools view -f 12 human_mapped/${SAMPLE}_mapped_human.bam > human_mapped/${SAMPLE}_mapped_human_unmapped.bam
 
+# Sort alignments by read name
+samtools sort -n human_mapped/${SAMPLE}_mapped_human_unmapped.bam > human_mapped/${SAMPLE}_mapped_human_unmapped_sorted.bam
+
 # Convert to FASTQ
-bamToFastq -i human_mapped/${SAMPLE}_mapped_human_unmapped.bam -fq human_mapped/${SAMPLE}_unmapped_human_R1.fastq -fq2 human_mapped/${SAMPLE}_unmapped_human_R2.fastq
+bamToFastq -i human_mapped/${SAMPLE}_mapped_human_unmapped_sorted.bam -fq human_mapped/${SAMPLE}_unmapped_human_R1.fastq -fq2 human_mapped/${SAMPLE}_unmapped_human_R2.fastq
 
 # Assembly
-spades.py -1 human_mapped/${SAMPLE}_unmapped_human_R1.fastq -2 human_mapped/${SAMPLE}_unmapped_human_R2.fastq --trusted-contigs $REFERENCE_YFV -t 12 -m 20 -o assembly/
+spades.py --phred-offset 33 -1 human_mapped/${SAMPLE}_unmapped_human_R1.fastq -2 human_mapped/${SAMPLE}_unmapped_human_R2.fastq --trusted-contigs $REFERENCE_YFV -t 12 -m 20 -o assembly/
 
 
 
