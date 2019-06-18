@@ -18,10 +18,10 @@ REFERENCE_HUMAN="/stgisilon_reference/basespace_hg19/Homo_sapiens/UCSC/hg19/FAST
 REFERENCE_YFV="reference/YFV_RJ104.fasta"
 
 # Align to human genome
-bwa mem -t 12 -M $REFERENCE_HUMAN passedQC/${SAMPLE1}_cutadapt.fastq passedQC/${SAMPLE2}_cutadapt.fastq | samtools view -b -q 30 -F 2304 -f 2  > human_mapped/${SAMPLE}_mapped_human.bam
+bwa mem -t 12 -M $REFERENCE_HUMAN passedQC/${SAMPLE1}_cutadapt.fastq passedQC/${SAMPLE2}_cutadapt.fastq | samtools view -b > human_mapped/${SAMPLE}_mapped_human.bam
 
 # Save unmapped reads
-samtools view -u -f 12 human_mapped/${SAMPLE}_mapped_human.bam > human_mapped/${SAMPLE}_mapped_human_unmapped.bam
+samtools view -f 12 human_mapped/${SAMPLE}_mapped_human.bam > human_mapped/${SAMPLE}_mapped_human_unmapped.bam
 
 # Convert to FASTQ
 bamToFastq -i human_mapped/${SAMPLE}_mapped_human_unmapped.bam -fq human_mapped/${SAMPLE}_unmapped_human_R1.fastq -fq2 human_mapped/${SAMPLE}_unmapped_human_R2.fastq
