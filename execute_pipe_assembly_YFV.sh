@@ -7,10 +7,10 @@
 mkdir -p fastq reference mapped passedQC variants assembly human_mapped
 
 # Take sample file name
-FILE1=$(basename fastq/*R1* .fastq.gz)
-FILE2=$(basename fastq/*R2* .fastq.gz)
+SAMPLE1=$(basename fastq/*R1* .fastq.gz)
+SAMPLE2=$(basename fastq/*R2* .fastq.gz)
 # Generalize this
-FILE=$(basename fastq/*R1* _R1_001.fastq.gz)
+SAMPLE=$(basename fastq/*R1* _R1_001.fastq.gz)
 # Reference variable
 # Very important!!!!
 # Specify the name of your reference of choice inside the quotes!!!
