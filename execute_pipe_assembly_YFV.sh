@@ -26,6 +26,9 @@ samtools view -f 12 human_mapped/${SAMPLE}_mapped_human.bam > human_mapped/${SAM
 # Sort alignments by read name
 samtools sort -n human_mapped/${SAMPLE}_mapped_human_unmapped.bam > human_mapped/${SAMPLE}_mapped_human_unmapped_sorted.bam
 
+# remove unused bam
+rm human_mapped/${SAMPLE}_mapped_human_unmapped.bam 
+
 # Convert to FASTQ
 bamToFastq -i human_mapped/${SAMPLE}_mapped_human_unmapped_sorted.bam -fq human_mapped/${SAMPLE}_unmapped_human_R1.fastq -fq2 human_mapped/${SAMPLE}_unmapped_human_R2.fastq
 
