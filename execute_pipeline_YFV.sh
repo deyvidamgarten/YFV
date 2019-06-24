@@ -26,6 +26,7 @@ cutadapt -q 30,30 -m 50 --max-n 0 -u 9 -u -5 -U 9 -U -5 -o passedQC/${FILE1}_cut
 
 # Indexing reference
 bwa index reference/${REFERENCE}
+samtools faidx reference/${REFERENCE}
 
 # Alignment
 bwa mem -B 2 -O 3 -t 12 -M reference/${REFERENCE} passedQC/${FILE1}_cutadapt.fastq passedQC/${FILE2}_cutadapt.fastq | samtools view -b > mapped/${FILE}_mapped_${REFERENCE}.bam
