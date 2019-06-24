@@ -31,7 +31,7 @@ bwa index reference/${REFERENCE}
 bwa mem -B 2 -O 3 -t 12 -M reference/${REFERENCE} passedQC/${FILE1}_cutadapt.fastq passedQC/${FILE2}_cutadapt.fastq | samtools view -b > mapped/${FILE}_mapped_${REFERENCE}.bam
 
 # Cleaning alignments
-samtools view -F 2304 -f 2 -q 30 -b mapped/${FILE}_mapped_${REFERENCE}.bam > mapped/${FILE}_mapped_${REFERENCE}_clean.bam
+samtools view -F 2304 -f 2 -q 25 -b mapped/${FILE}_mapped_${REFERENCE}.bam > mapped/${FILE}_mapped_${REFERENCE}_clean.bam
 
 # Ordering
 samtools sort mapped/${FILE}_mapped_${REFERENCE}_clean.bam > mapped/${FILE}_mapped_${REFERENCE}_clean_sorted.bam
